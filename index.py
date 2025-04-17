@@ -1,12 +1,16 @@
+import os
+from dotenv import load_dotenv
 import requests
 
-# Replace this with your actual token
-API_TOKEN = "2096~TnBTL7VnZX9AXDhVErnBATaVzZ67VxCxB78R6an6XVZFcnvCDhfM9mfcNVAc6xkm"
+# Load .env variables
+load_dotenv()
+
+# Access the token
+API_TOKEN = os.getenv("CANVAS_API_TOKEN")
 COURSE_ID = 422848
 ASSIGNMENT_ID = 2054428
 
 url = f"https://gatech.instructure.com/api/v1/courses/{COURSE_ID}/assignments/{ASSIGNMENT_ID}"
-
 headers = {
     "Authorization": f"Bearer {API_TOKEN}"
 }
@@ -18,7 +22,5 @@ if response.status_code == 200:
     print("Assignment Name:", assignment["name"])
     print("Due Date:", assignment.get("due_at"))
     print("Points Possible:", assignment["points_possible"])
-    print("Description:", assignment["description"])
 else:
-    print("Failed to fetch assignment. Status Code:", response.status_code)
-    print(response.text)
+    print("Error:", response.status_code)
