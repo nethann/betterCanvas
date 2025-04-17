@@ -27,8 +27,8 @@ A simple, interactive Tkinter-based GUI that connects to your Georgia Tech Canva
 
 - Click + New Access Token
 
-- Fill in a purpose like "Canvas Viewer App" and optionally set an expiration
+- Fill in a purpose like "Canvas Viewer App" **No need to set expiration & expiration time**
 
 - Click Generate Token
 
-- Copy the token — you won’t be able to see it again later
+- Copy the token — you won’t be able to see it again later **Don't share with anyone. Keep it to yourself!**
