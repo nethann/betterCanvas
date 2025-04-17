@@ -8,7 +8,6 @@ import pytz
 import threading
 
 
-# Load API token
 load_dotenv()
 API_KEY = os.getenv("CANVAS_API_TOKEN")
 API_URL = "https://gatech.instructure.com"
@@ -16,7 +15,6 @@ API_URL = "https://gatech.instructure.com"
 canvas = Canvas(API_URL, API_KEY)
 courses = list(canvas.get_courses(enrollment_state='active'))
 
-# Tkinter App
 root = tk.Tk()
 root.title("Canvas Course Assignments")
 root.geometry("800x1000")
@@ -25,7 +23,6 @@ root.geometry("800x1000")
 course_listbox = tk.Listbox(root, height=15, font=("Segoe UI", 12))
 course_listbox.pack(fill=tk.X, padx=10, pady=10)
 
-# Scrollable frame for assignments
 assignments_text = tk.Text(root, height=15, font=("Consolas", 11))
 assignments_text.pack(fill=tk.BOTH, expand=True, padx=10, pady=(0, 10))
 
@@ -39,7 +36,6 @@ def on_course_select(event):
         index = selection[0]
         course = courses[index]
 
-        # Show loading message (on main thread)
         assignments_text.after(0, lambda: assignments_text.delete(1.0, tk.END))
         assignments_text.after(0, lambda: assignments_text.insert(
             tk.END, f"Loading assignments for: {course.name}...\n"))
@@ -72,17 +68,14 @@ def on_course_select(event):
                 if not upcoming:
                     assignments_text.insert(tk.END, "No upcoming assignments.\n")
 
-            # Replace loading text with results
             assignments_text.after(0, display_results)
 
         except Exception as e:
             assignments_text.after(0, lambda: messagebox.showerror(
                 "Error", f"Could not fetch assignments: {e}"))
 
-    # Start loading assignments in a new thread
     threading.Thread(target=fetch_assignments, daemon=True).start()
 
-# Populate course list
 for c in courses:
     course_listbox.insert(tk.END, c.name)
 
