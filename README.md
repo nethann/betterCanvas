@@ -16,7 +16,7 @@ A simple, interactive Tkinter-based GUI that connects to your Georgia Tech Canva
 
 ### 1. Clone the repository
 ### 2. Rename .env.example file to .env 
-### 3. Add your token to that variable **WITHOUT** quotations
+### 3. Add your TOKEN to that variable **WITHOUT** quotations
 
 --- 
 

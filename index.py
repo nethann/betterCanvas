@@ -4,10 +4,10 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from canvasapi import Canvas
 from datetime import datetime
-import pytz 
+import pytz
 import threading
 
-
+# Load API
 load_dotenv()
 API_KEY = os.getenv("CANVAS_API_TOKEN")
 API_URL = "https://gatech.instructure.com"
@@ -15,17 +15,48 @@ API_URL = "https://gatech.instructure.com"
 canvas = Canvas(API_URL, API_KEY)
 courses = list(canvas.get_courses(enrollment_state='active'))
 
+BG_COLOR = "#1e1e1e"
+FG_COLOR = "#dcdcdc"
+HIGHLIGHT_COLOR = "#3a3a3a"
+ACCENT_COLOR = "#007acc"
+
 root = tk.Tk()
 root.title("Canvas Course Assignments")
 root.geometry("800x1000")
+root.configure(bg=BG_COLOR)
 
-# Course List
-course_listbox = tk.Listbox(root, height=15, font=("Segoe UI", 12))
+course_listbox = tk.Listbox(
+    root,
+    height=15,
+    font=("Segoe UI", 12),
+    bg=BG_COLOR,
+    fg=FG_COLOR,
+    selectbackground=ACCENT_COLOR,
+    highlightbackground=HIGHLIGHT_COLOR,
+    highlightcolor=HIGHLIGHT_COLOR,
+    relief=tk.FLAT,
+    borderwidth=0
+)
 course_listbox.pack(fill=tk.X, padx=10, pady=10)
 
-assignments_text = tk.Text(root, height=15, font=("Consolas", 11))
+# Assignments Text Area
+assignments_text = tk.Text(
+    root,
+    height=15,
+    font=("Consolas", 11),
+    bg=BG_COLOR,
+    fg=FG_COLOR,
+    insertbackground=FG_COLOR,
+    selectbackground=ACCENT_COLOR,
+    wrap=tk.WORD,
+    relief=tk.FLAT,
+    borderwidth=0
+)
 assignments_text.pack(fill=tk.BOTH, expand=True, padx=10, pady=(0, 10))
 
+scrollbar = tk.Scrollbar(assignments_text, command=assignments_text.yview)
+assignments_text.config(yscrollcommand=scrollbar.set)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
 def on_course_select(event):
     def fetch_assignments():
