@@ -7,7 +7,6 @@ from datetime import datetime
 import pytz
 import threading
 
-# Load API
 load_dotenv()
 API_KEY = os.getenv("CANVAS_API_TOKEN")
 API_URL = "https://gatech.instructure.com"
@@ -39,7 +38,6 @@ course_listbox = tk.Listbox(
 )
 course_listbox.pack(fill=tk.X, padx=10, pady=10)
 
-# Assignments Text Area
 assignments_text = tk.Text(
     root,
     height=15,
